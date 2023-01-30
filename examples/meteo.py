@@ -15,6 +15,7 @@ from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT
 import requests
 import json
+from unidecode import unidecode
 
 def demo(n, block_orientation, rotate, inreverse):
     # create matrix device
@@ -25,24 +26,27 @@ def demo(n, block_orientation, rotate, inreverse):
     
     i=0
     while i==0 :
-        url = "https://api.openweathermap.org/data/2.5/weather?q=Gattieres&appid=f3e02c2c8f957149e700509a7af8b267&units=metric&lang=fr"
+        url = "https://api.openweathermap.org/data/2.5/weather?q=Vence&appid=f3e02c2c8f957149e700509a7af8b267&units=metric&lang=fr"
         meteoResponse = requests.get(url)
         data = json.loads(meteoResponse.text)
         
-        temp = data['main']['temp']
+        temp = round(data['main']['temp'], 1)
+
         displayTemp = str(temp)
 
-        weather = data['weather']['description']
-        displayWeather = str(weather)
+        weather = data['weather'][0]['description']
+        # unidecode sert a retirer les accents
+        displayWeather = unidecode(str(weather))
 
         j = 0
         while j < 5 :
+            # affichage statique de la temperature
             with canvas(device) as draw:
-                text(draw, (0, 0), displayTemp, fill="white", font=proportional(SINCLAIR_FONT))
-            time.sleep(3)
+                text(draw, (0, 0), displayTemp + "C", fill="white", font=proportional(SINCLAIR_FONT))
+            time.sleep(6)
 
-            
-            show_message(device, displayWeather, fill="white", font=proportional(LCD_FONT), scroll_delay=0.1)
+            # affichage glissant des precipitations
+            show_message(device, displayWeather, fill="white", font=proportional(LCD_FONT), scroll_delay=0.05)
             j = j+1
 
 
