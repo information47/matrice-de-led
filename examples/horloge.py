@@ -22,7 +22,6 @@ def demo(n, block_orientation, rotate, inreverse):
     device = max7219(serial, cascaded=n, block_orientation=block_orientation,
                      rotate=rotate, blocks_arranged_in_reverse_order=inreverse)
     print("Created device")
-    
     before = ""
     hour = ""
     while 1==1 :
