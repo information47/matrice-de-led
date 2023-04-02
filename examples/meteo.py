@@ -26,7 +26,7 @@ def demo(n, block_orientation, rotate, inreverse):
     
     i=0
     while i==0 :
-        url = "https://api.openweathermap.org/data/2.5/weather?q=Vence&appid=f3e02c2c8f957149e700509a7af8b267&units=metric&lang=fr"
+        url = "https://api.openweathermap.org/data/2.5/weather?q=Ivry-Sur-Seine&appid=f3e02c2c8f957149e700509a7af8b267&units=metric&lang=fr"
         meteoResponse = requests.get(url)
         data = json.loads(meteoResponse.text)
         

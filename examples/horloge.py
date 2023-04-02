@@ -30,7 +30,7 @@ def demo(n, block_orientation, rotate, inreverse):
             before = hour
             now = datetime.now()
             hour = now.strftime("%H:%M")
-            text(draw, (0, 0), hour, fill="white", font=proportional(SINCLAIR_FONT))
+            text(draw, (0, 0), hour, fill="white", font=proportional(CP437_FONT))
         print(hour)
         if before == hour or before == "":
             time.sleep(1)
