@@ -17,16 +17,19 @@ import requests
 import json
 from unidecode import unidecode
 
-def demo(n, block_orientation, rotate, inreverse):
+def meteo(n, block_orientation, rotate, inreverse):
     # create matrix device
     serial = spi(port=0, device=0, gpio=noop())
     device = max7219(serial, cascaded=n, block_orientation=block_orientation,
                      rotate=rotate, blocks_arranged_in_reverse_order=inreverse)
     print("Created device")
     
+    # definition de la luminosité
+    device.contrast(16)
+
     i=0
     while i==0 :
-        url = "https://api.openweathermap.org/data/2.5/weather?q=Ivry-Sur-Seine&appid=f3e02c2c8f957149e700509a7af8b267&units=metric&lang=fr"
+        url = "https://api.openweathermap.org/data/2.5/weather?q=Gattières&appid=f3e02c2c8f957149e700509a7af8b267&units=metric&lang=fr"
         meteoResponse = requests.get(url)
         data = json.loads(meteoResponse.text)
         
@@ -66,6 +69,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     try:
-        demo(args.cascaded, args.block_orientation, args.rotate, args.reverse_order)
+        meteo(args.cascaded, args.block_orientation, args.rotate, args.reverse_order)
     except KeyboardInterrupt:
         pass
